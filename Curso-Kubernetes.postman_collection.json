@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "7cce1eda-4123-44ac-897b-3b497fae1b91",
+		"name": "Curso-Kubernetes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "33993503"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8001"
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8001/3"
+					},
+					"response": []
+				},
+				{
+					"name": "saveUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Lucia\",\r\n    \"email\":\"lupodesta@prueba.com\",\r\n    \"password\":\"prueba123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8001"
+					},
+					"response": []
+				},
+				{
+					"name": "modify",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Luca\",\r\n    \"email\":\"lpodesta@prueba.com\",\r\n    \"password\":\"prueba1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8001/3"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8001/4"
+					},
+					"response": []
+				},
+				{
+					"name": "usersInCourse",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8001/users-courses?ids=1,3,4,5",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"users-courses"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "1,3,4,5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cursos",
+			"item": [
+				{
+					"name": "findAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8002"
+					},
+					"response": []
+				},
+				{
+					"name": "findById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:8002/1"
+					},
+					"response": []
+				},
+				{
+					"name": "save",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8002"
+					},
+					"response": []
+				},
+				{
+					"name": "modify",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Biologia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8002/4"
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "localhost:8002/3"
+					},
+					"response": []
+				},
+				{
+					"name": "asignarUsuariosCurso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 4,\r\n    \"nombre\": \"Luca\",\r\n    \"email\": \"lpodesta@prueba.com\",\r\n    \"password\": \"prueba123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8002/asignar-usuario/1"
+					},
+					"response": []
+				},
+				{
+					"name": "AgregarUsuarioNuevoEnCurso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Bruno\",\r\n    \"email\": \"bpodesta@prueba.com\",\r\n    \"password\": \"prueba123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8002/crear-usuario/2"
+					},
+					"response": []
+				},
+				{
+					"name": "BorrarUsuarioCurso",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\":\"6\",\r\n    \"nombre\": \"Bruno\",\r\n    \"email\": \"bpodesta@prueba.com\",\r\n    \"password\": \"prueba123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:8002/remove-usuario/2"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

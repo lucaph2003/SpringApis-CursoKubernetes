@@ -9,9 +9,9 @@
 	</parent>
 	<groupId>org.lpodesta.springcloud.msvc.usuarios</groupId>
 	<artifactId>msvc-usuarios</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>msvc-usuarios</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Microservicio de autogestion de usuarios</description>
 	<url/>
 	<licenses>
 		<license/>

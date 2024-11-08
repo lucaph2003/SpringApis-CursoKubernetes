@@ -9,9 +9,9 @@
 	</parent>
 	<groupId>org.lpodesta.springcloud.msvc-cursos</groupId>
 	<artifactId>msvc-cursos</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>msvc-cursos</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Microservicio de autogestion de cursos</description>
 	<url/>
 	<licenses>
 		<license/>

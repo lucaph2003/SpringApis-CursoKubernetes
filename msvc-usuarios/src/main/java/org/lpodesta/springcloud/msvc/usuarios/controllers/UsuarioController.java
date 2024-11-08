@@ -1,13 +1,17 @@
 package org.lpodesta.springcloud.msvc.usuarios.controllers;
 
+import jakarta.validation.Valid;
 import org.lpodesta.springcloud.msvc.usuarios.models.entity.Usuario;
 import org.lpodesta.springcloud.msvc.usuarios.services.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController // hay dos tipos generalmente , controller para mvc  y restcontrolller para api rest
@@ -32,12 +36,19 @@ public class UsuarioController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario saveUser(@RequestBody Usuario usuario){
-        return usuarioService.saveUser(usuario);
+    public ResponseEntity<?> saveUser(@Valid @RequestBody Usuario usuario, BindingResult result){
+        if(result.hasErrors()){
+            return validate(result);
+        }
+        return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.saveUser(usuario));
     }
 
+
     @PutMapping("/{id}")
-    public ResponseEntity<?> modify(@RequestBody Usuario usuario,@PathVariable Long id){
+    public ResponseEntity<?> modify(@Valid @RequestBody Usuario usuario, BindingResult result, @PathVariable Long id){
+        if(result.hasErrors()){
+            return validate(result);
+        }
         Optional<Usuario> optionalUser = usuarioService.findUserById(id);
         if(optionalUser.isPresent()){
             Usuario usuarioDb = optionalUser.get();
@@ -57,5 +68,15 @@ public class UsuarioController {
             return ResponseEntity.noContent().build(); // Hace un update porque ya existe
         }
         return ResponseEntity.notFound().build();
+    }
+
+
+
+    private static ResponseEntity<Map<String, String>> validate(BindingResult result) {
+        Map<String,String> errors = new HashMap<>();
+        result.getFieldErrors().forEach(err -> {
+            errors.put(err.getField(), "El campo " + err.getField() + " " + err.getDefaultMessage());
+        });
+        return ResponseEntity.badRequest().body(errors);
     }
 }

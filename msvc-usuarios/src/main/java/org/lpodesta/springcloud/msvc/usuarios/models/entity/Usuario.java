@@ -1,6 +1,9 @@
 package org.lpodesta.springcloud.msvc.usuarios.models.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity //Le decimos que es una tabla
 @Table(name="usuarios") //Por defecto si no le ponemos es el nombre de la clase
@@ -11,11 +14,15 @@ public class Usuario {
     private Long id;
 
     @Column(length = 100) //Con column podemos cambiar la metadata
+    @NotEmpty(message = "El nombre no puede estar vacio")
     private String nombre;
 
     @Column(unique = true)
+    @Email
+    @NotEmpty(message = "El email no puede estar vacio")
     private String email;
 
+    @NotBlank //no acepta los espacione en blanco
     private String password;
 
 

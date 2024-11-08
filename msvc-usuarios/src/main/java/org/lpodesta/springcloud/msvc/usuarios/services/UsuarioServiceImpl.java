@@ -1,5 +1,6 @@
 package org.lpodesta.springcloud.msvc.usuarios.services;
 
+import org.lpodesta.springcloud.msvc.usuarios.clients.ICursoClient;
 import org.lpodesta.springcloud.msvc.usuarios.models.entity.Usuario;
 import org.lpodesta.springcloud.msvc.usuarios.repositories.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,9 @@ import java.util.Optional;
 public class UsuarioServiceImpl implements IUsuarioService {
     @Autowired //Inyeccion de dependencias
     private IUsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ICursoClient cursoClient;
 
     @Override
     @Transactional(readOnly = true)
@@ -36,5 +40,16 @@ public class UsuarioServiceImpl implements IUsuarioService {
     @Transactional
     public void delete(Long id) {
         usuarioRepository.deleteById(id);
+        cursoClient.deleteCourseUserById(id);
+    }
+
+    @Override
+    public Optional<Usuario> findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<Usuario> showByIds(Iterable<Long> ids) {
+        return (List<Usuario>) usuarioRepository.findAllById(ids);
     }
 }

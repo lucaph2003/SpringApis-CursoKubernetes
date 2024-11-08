@@ -9,10 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @RestController // hay dos tipos generalmente , controller para mvc  y restcontrolller para api rest
 public class UsuarioController {
@@ -40,6 +37,13 @@ public class UsuarioController {
         if(result.hasErrors()){
             return validate(result);
         }
+
+        if(usuarioService.findByEmail(usuario.getEmail()).isPresent()){
+            return ResponseEntity.badRequest()
+                    .body(Collections
+                            .singletonMap("Error","Ya existe un usuario con ese correo electronico"));
+        }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(usuarioService.saveUser(usuario));
     }
 
@@ -49,6 +53,7 @@ public class UsuarioController {
         if(result.hasErrors()){
             return validate(result);
         }
+
         Optional<Usuario> optionalUser = usuarioService.findUserById(id);
         if(optionalUser.isPresent()){
             Usuario usuarioDb = optionalUser.get();
@@ -71,6 +76,10 @@ public class UsuarioController {
     }
 
 
+    @GetMapping("/users-courses")
+    public ResponseEntity<?> getUsersByCourse(@RequestParam List<Long> ids ){
+        return ResponseEntity.ok(usuarioService.showByIds(ids));
+    }
 
     private static ResponseEntity<Map<String, String>> validate(BindingResult result) {
         Map<String,String> errors = new HashMap<>();
